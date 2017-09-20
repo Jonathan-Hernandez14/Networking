@@ -1,7 +1,7 @@
 /*///////////////////////////////////////////////////////////
 *
 * FILE:		client.c
-* AUTHOR:	Your Name Here
+* AUTHOR:	Jonathan Hernandez
 * PROJECT:	CS 3251 Project 1 - Professor Ellen Zegura 
 * DESCRIPTION:	Network Client Code
 * CREDIT:	Adapted from Professor Traynor
