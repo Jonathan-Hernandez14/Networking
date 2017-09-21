@@ -38,6 +38,11 @@ int main(int argc, char *argv[])
 
     /* Create new TCP Socket for incoming requests*/
     /*	    FILL IN	*/
+    serverSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (serverSock < 0) {
+        perror("Could not open server socket");
+        exit(EXIT_FAILURE);
+    }
 
     /* Construct local address structure*/
     /*	    FILL IN	*/
