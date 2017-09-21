@@ -54,6 +54,15 @@ int main(int argc, char *argv[])
 
     /* Create a new TCP socket*/
     /*	    FILL IN	*/
+    /* int     socket(int domain, int type, int protocol);
+     * creates a new socket and assigns it to the client socket
+     * if no socket could be created then error message will be
+     *printed out to the console to notify the user.   */
+
+    clientSock = socket(AF_INET,SOCK_STREAM, IPPROTO_TCP);
+    if (clientSock < 0) {
+    	printf("Error socket could not be created");
+    }
 
 
     /* Construct the server address structure */
