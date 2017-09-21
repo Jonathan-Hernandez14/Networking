@@ -61,18 +61,34 @@ int main(int argc, char *argv[])
 
     clientSock = socket(AF_INET,SOCK_STREAM, IPPROTO_TCP);
     if (clientSock < 0) {
-    	printf("Error socket could not be created");
+    	perror("socket error could not create socket");
+    	exit(EXIT_FAILURE);
     }
-
 
     /* Construct the server address structure */
     /*	    FILL IN	 */
+    /*
+	 *  struct sockaddr_in {
+     * 		short            sin_family;   // e.g. AF_INET
+     *		unsigned short   sin_port;     // e.g. htons(3490)
+     *		struct in_addr   sin_addr;     // see struct in_addr, below
+     *		char             sin_zero[8];  // zero this if you want to
+	 * };
+    */
 
+    serv_addr.sin_family = AF_INET
+    serv_addr.sin_port = htons(servPort);
+    serv_addr.sin_addr.in_addr = hton1(INADDR_ANY);
+    serv_addr -> sin_zero[8] =
 
     /* Establish connecction to the server */
     /*	    FILL IN	 */
 
-    
+    connect(clientSock, &serv_addr, sizeof(serv_addr));
+    if (connect < 0) {
+    	perror("connection failed terrminating");
+    	exit(EXIT_FAILURE);
+    }
     /* Send the string to the server */
     /*	    FILL IN	 */
 
