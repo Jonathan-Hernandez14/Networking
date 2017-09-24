@@ -54,9 +54,9 @@ int main(int argc, char *argv[])
     /* Construct local address structure*/
     /*	    FILL IN	*/
     memset(&changeServAddr, 0, sizeof(changeServAddr));
-    changeServAddr.sin_family = AF_INET
+    changeServAddr.sin_family = AF_INET;
     changeServAddr.sin_port = htons(servPort);
-    changeServAddr.sin_addr.in_addr = hton1(INADDR_ANY);
+    changeServAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     /* Bind to local address structure */
     /*	    FILL IN	*/

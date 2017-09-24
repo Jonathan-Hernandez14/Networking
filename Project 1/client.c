@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(servPort);
-    serv_addr.sin_addr.s_addr = hton1(INADDR_ANY);
+    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     /* Establish connecction to the server */
     /*	    FILL IN	 */
@@ -90,18 +90,18 @@ int main(int argc, char *argv[])
 
     snprintf(sndBuf, SNDBUFSIZE, "%s %s", balCount, accountName);
 
-    ssize_t numBytes = send(sock, sndBuf, SNDBUFSIZE, 0);
+    ssize_t numBytes = send(clientSock, sndBuf, SNDBUFSIZE, 0);
     if(numBytes < 0){
         // DieWithSystemMessage("send() failed");
         perror("send() failed... TRY AGAIN");
-        close(sock);
+        close(clientSock);
         exit(EXIT_FAILURE);
     }
 
     /* Receive and print response from the server */
     /*	    FILL IN	 */
 
-    int recvSize = recv(clientSock rcvBuf, RCVBUFSIZE, 0);
+    int recvSize = recv(clientSock, rcvBuf, RCVBUFSIZE, 0);
     if(recvSize==-1){
         perror("recv() error");
         exit(1);
@@ -109,6 +109,6 @@ int main(int argc, char *argv[])
 
     printf("%s\n", accountName);
     printf("Balance is: %i\n", balance);
-    close(sock);
+    close(clientSock);
     return 0;
 }
