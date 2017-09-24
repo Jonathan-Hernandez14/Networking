@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     /* Bind to local address structure */
     /*	    FILL IN	*/
 
-    if (bind(serverSock, &changeServAddr, sizeof(changeServAddr)) < 0) {
+    if (bind(serverSock, (struct sockaddr*) &changeServAddr, sizeof(changeServAddr)) < 0) {
         perror("binding failed exiting");
         close(serverSock);
         exit(EXIT_FAILURE);
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 	/* Accept incoming connection */
 	/*	FILL IN	    */
     unsigned int clientAddLength = sizeof(clntLen);
-    clientSock = accept(serverSock, (struct sockadd*) &changeClntAddr, &clientAddLength );
+    clientSock = accept(serverSock, (struct sockaddr*) &changeClntAddr, &clientAddLength );
     if (clientSock == -1) {
         perror("Client Socket failed to start, Exiting");
         close(serverSock);
