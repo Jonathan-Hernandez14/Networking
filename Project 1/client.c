@@ -79,7 +79,6 @@ int main(int argc, char *argv[])
     /* Establish connecction to the server */
     /*	    FILL IN	 */
 
-    
     if (connect(clientSock, &serv_addr, sizeof(serv_addr)) < 0) {
     	perror("connection failed terrminating");
     	close(clientSock);
@@ -93,7 +92,7 @@ int main(int argc, char *argv[])
     ssize_t numBytes = send(clientSock, sndBuf, SNDBUFSIZE, 0);
     if(numBytes < 0){
         // DieWithSystemMessage("send() failed");
-        perror("send() failed... TRY AGAIN");
+        perror("Send function hsd fsiled");
         close(clientSock);
         exit(EXIT_FAILURE);
     }

@@ -47,13 +47,14 @@ int main(int argc, char *argv[])
     /*	    FILL IN	*/
     serverSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (serverSock < 0) {
-        perror("Could not open server socket");
-        exit(EXIT_FAILURE);
+        perror("Could not open server socket, Failed to create");
+        exit(1);
     }
 
     /* Construct local address structure*/
     /*	    FILL IN	*/
-    memset(&changeServAddr, 0, sizeof(changeServAddr));
+
+    // memset(&changeServAddr, 0, sizeof(changeServAddr));
     changeServAddr.sin_family = AF_INET;
     changeServAddr.sin_port = htons(changeServPort);
     changeServAddr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -61,7 +62,8 @@ int main(int argc, char *argv[])
 
     /* Bind to local address structure */
     /*	    FILL IN	*/
-    if (bind(serverSock, (struct sockadd*) &changeServAddr, sizeof(changeServAddr)) < 0) {
+
+    if (bind(serverSock, &changeServAddr, sizeof(changeServAddr)) < 0) {
         perror("binding failed exiting");
         close(serverSock);
         exit(EXIT_FAILURE);
@@ -83,7 +85,7 @@ int main(int argc, char *argv[])
 	/*	FILL IN	    */
     unsigned int clientAddLength = sizeof(clntLen);
     clientSock = accept(serverSock, (struct sockadd*) &changeClntAddr, &clientAddLength );
-    if (clientSock < 0) {
+    if (clientSock == -1) {
         perror("Client Socket failed to start, Exiting");
         close(serverSock);
         exit(EXIT_FAILURE);
@@ -99,7 +101,7 @@ int main(int argc, char *argv[])
     }
 
 
-           if(strcmp("BAL mySavings", rcvBuf)==0){
+        if(strcmp("BAL mySavings", rcvBuf)==0){
             countSaving++;
             balance = 1000;
             snprintf(sndBuf, SNDBUFSIZE, "mySavings BALANCE  %d", balance);
