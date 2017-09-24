@@ -26,9 +26,6 @@
 int main(int argc, char *argv[])
 {
 
-    int clientSock;		    /* socket descriptor */
-    struct sockaddr_in serv_addr;   /* server address structure */
-
     char *accountName;		    /* Account Name  */
     char *servIP;		    /* Server IP address  */
     unsigned short servPort;	    /* Server Port number */
@@ -63,6 +60,8 @@ int main(int argc, char *argv[])
      * if no socket could be created then error message will be
      *printed out to the console to notify the user.   */
 
+
+    int clientSock;		    /* socket descriptor */
     clientSock = socket(AF_INET,SOCK_STREAM, IPPROTO_TCP);
     if (clientSock < 0) {
     	perror("Socket error, could not create socket");
@@ -71,16 +70,18 @@ int main(int argc, char *argv[])
 
     /* Construct the server address structure */
     /*	    FILL IN	 */
-    memset(&serv_addr, 0, sizeof(serv_addr));
+
+
+    struct sockaddr_in serv_addr;   /* server address structure */
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(servPort);
-    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
 
     /* Establish connecction to the server */
     /*	    FILL IN	 */
-
-    if (connect(clientSock,(struct sockadder*) &serv_addr, sizeof(serv_addr)) < 0) {
-    	perror("connection failed terrminating");
+    connection_stat = connect(clientSock, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+    if (connection_stat < 0) {
+    	perror("Connection failed, terrminating process");
     	close(clientSock);
     	exit(EXIT_FAILURE);
     }
@@ -92,7 +93,7 @@ int main(int argc, char *argv[])
     ssize_t numBytes = send(clientSock, sndBuf, SNDBUFSIZE, 0);
     if(numBytes < 0){
         // DieWithSystemMessage("send() failed");
-        perror("Send function hsd fsiled");
+        perror("Send function has failed");
         close(clientSock);
         exit(EXIT_FAILURE);
     }
