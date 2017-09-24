@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 
     /* Construct the server address structure */
     /*	    FILL IN	 */
-
+    memset(&serv_addr, 0, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(servPort);
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
     /* Establish connecction to the server */
     /*	    FILL IN	 */
 
-    if (connect(clientSock,(struct sockadder *) &serv_addr, sizeof(serv_addr)) < 0) {
+    if (connect(clientSock,(struct sockadder*) &serv_addr, sizeof(serv_addr)) < 0) {
     	perror("connection failed terrminating");
     	close(clientSock);
     	exit(EXIT_FAILURE);
