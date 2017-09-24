@@ -35,8 +35,8 @@ int main(int argc, char *argv[])
     char nameBuf[BUFSIZE];			/* Buff to store account name from client */
     int  balance;				/* Place to record account balance result */
 
-    char sendBuf[SNDBUFSIZE];
-    char receiveBuf[RCVBUFSIZE];
+    char sndBuf[SNDBUFSIZE];
+    char rcvBuf[RCVBUFSIZE];
 
     int countSaving = 0;
     int countChecking = 0;
@@ -54,11 +54,10 @@ int main(int argc, char *argv[])
     /* Construct local address structure*/
     /*	    FILL IN	*/
     memset(&changeServAddr, 0, sizeof(changeServAddr));
-<<<<<<< HEAD
     changeServAddr.sin_family = AF_INET;
     changeServAddr.sin_port = htons(changeServPort);
     changeServAddr.sin_addr.s_addr = htonl(INADDR_ANY);
->>>>>>> 6d2c1c08d4c6e023357cd4c4fe8a46215555c094
+
 
     /* Bind to local address structure */
     /*	    FILL IN	*/
@@ -82,9 +81,9 @@ int main(int argc, char *argv[])
 
 	/* Accept incoming connection */
 	/*	FILL IN	    */
-    unsigned int clientAddLength = sizeof(clntLen)
-    clientSock = accept(serverSock, (struct sockadd*) &changeClntAddr, &clientAddLength )
-    if (clntSock < 0) {
+    unsigned int clientAddLength = sizeof(clntLen);
+    clientSock = accept(serverSock, (struct sockadd*) &changeClntAddr, &clientAddLength );
+    if (clientSock < 0) {
         perror("Client Socket failed to start, Exiting");
         close(serverSock);
         exit(EXIT_FAILURE);
@@ -92,7 +91,7 @@ int main(int argc, char *argv[])
 	/* Extract the account name from the packet, store in nameBuf */
 	/* Look up account balance, store in balance */
 	/*	FILL IN	    */
-    int received = recv(clientSock, receiveBuf, RCVBUFSIZE, 0);
+    int received = recv(clientSock, rcvBuf, RCVBUFSIZE, 0);
     if (clientSock < 0) {
         perror("Client not open currently");
         close(serverSock);
@@ -143,7 +142,7 @@ int main(int argc, char *argv[])
 	/* Return account balance to client */
 	/*	FILL IN	    */
 
-        int sentSize = send(clntSock, sndBuf, SNDBUFSIZE, 0);
+        int sentSize = send(clientSock, sndBuf, SNDBUFSIZE, 0);
         close(clientSock);
     }
 
