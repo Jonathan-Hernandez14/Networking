@@ -25,13 +25,8 @@
 int main(int argc, char *argv[])
 {
 
-    int serverSock;				/* Server Socket */
-    int clientSock;				/* Client Socket */
-    struct sockaddr_in changeServAddr;		/* Local address */
-    struct sockaddr_in changeClntAddr;		/* Client address */
     unsigned short changeServPort;		/* Server port */
-    unsigned int clntLen;			/* Length of address data struct */
-
+    
     char nameBuf[BUFSIZE];			/* Buff to store account name from client */
     int  balance;				/* Place to record account balance result */
 
@@ -45,6 +40,8 @@ int main(int argc, char *argv[])
 
     /* Create new TCP Socket for incoming requests*/
     /*	    FILL IN	*/
+
+    int serverSock;             /* Server Socket */
     serverSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (serverSock < 0) {
         perror("Could not open server socket, Failed to create");
@@ -54,10 +51,10 @@ int main(int argc, char *argv[])
     /* Construct local address structure*/
     /*	    FILL IN	*/
 
-    // memset(&changeServAddr, 0, sizeof(changeServAddr));
+    struct sockaddr_in changeServAddr;      /* Local address */
     changeServAddr.sin_family = AF_INET;
     changeServAddr.sin_port = htons(changeServPort);
-    changeServAddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    changeServAddr.sin_addr.s_addr = INADDR_ANY;
 
 
     /* Bind to local address structure */
@@ -83,8 +80,12 @@ int main(int argc, char *argv[])
 
 	/* Accept incoming connection */
 	/*	FILL IN	    */
-    unsigned int clientAddLength = sizeof(clntLen);
-    clientSock = accept(serverSock, (struct sockaddr*) &changeClntAddr, &clientAddLength );
+
+    struct sockaddr_in changeClntAddr;      /* Client address */
+    int clientSock;             /* Client Socket */
+    unsigned int clntLen;           /* Length of address data struct */
+
+    clientSock = accept(serverSock, (struct sockaddr*) &changeClntAddr, &clntLen);
     if (clientSock == -1) {
         perror("Client Socket failed to start, Exiting");
         close(serverSock);
@@ -122,7 +123,6 @@ int main(int argc, char *argv[])
             balance = 4000;
             snprintf(sndBuf, SNDBUFSIZE, "myCollege BALANCE  %d", balance);
         }
-
 
         else if(strcmp("COUNT mySavings", rcvBuf)==0){
             snprintf(sndBuf, SNDBUFSIZE, "mySavings COUNT  %d", countSaving);
