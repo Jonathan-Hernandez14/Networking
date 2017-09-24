@@ -25,6 +25,10 @@
 int main(int argc, char *argv[])
 {
 
+    struct sockaddr_in changeClntAddr;      /* Client address */
+    int clientSock;             /* Client Socket */
+    unsigned int clntLen;           /* Length of address data struct */
+
     unsigned short changeServPort;		/* Server port */
     
     char nameBuf[BUFSIZE];			/* Buff to store account name from client */
@@ -81,9 +85,7 @@ int main(int argc, char *argv[])
 	/* Accept incoming connection */
 	/*	FILL IN	    */
 
-    struct sockaddr_in changeClntAddr;      /* Client address */
-    int clientSock;             /* Client Socket */
-    unsigned int clntLen;           /* Length of address data struct */
+
 
     clientSock = accept(serverSock, (struct sockaddr*) &changeClntAddr, &clntLen);
     if (clientSock == -1) {
