@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
     char rcvBuf[RCVBUFSIZE];	    /* Receive Buffer */
     
     int balance;		    /* Account balance */
+    char *balCount;
 
     /* Get the Account Name from the command line */
     if (argc != 4) 
@@ -52,6 +53,9 @@ int main(int argc, char *argv[])
     /* Get the addditional parameters from the command line */
     /*	    FILL IN	*/
 
+
+
+
     /* Create a new TCP socket*/
     /*	    FILL IN	*/
     /* int     socket(int domain, int type, int protocol);
@@ -61,20 +65,12 @@ int main(int argc, char *argv[])
 
     clientSock = socket(AF_INET,SOCK_STREAM, IPPROTO_TCP);
     if (clientSock < 0) {
-    	perror("socket error could not create socket");
+    	perror("Socket error, could not create socket");
     	exit(EXIT_FAILURE);
     }
 
     /* Construct the server address structure */
     /*	    FILL IN	 */
-    /*
-	 *  struct sockaddr_in {
-     * 		short            sin_family;   // e.g. AF_INET
-     *		unsigned short   sin_port;     // e.g. htons(3490)
-     *		struct in_addr   sin_addr;     // see struct in_addr, below
-     *		char             sin_zero[8];  // zero this if you want to
-	 * };
-    */
 
     serv_addr.sin_family = AF_INET
     serv_addr.sin_port = htons(servPort);
@@ -84,21 +80,32 @@ int main(int argc, char *argv[])
     /* Establish connecction to the server */
     /*	    FILL IN	 */
 
-    connect(clientSock, &serv_addr, sizeof(serv_addr));
-    if (connect < 0) {
+    
+    if (connect(clientSock, &serv_addr, sizeof(serv_addr)) < 0) {
     	perror("connection failed terrminating");
+    	close(clientSock);
     	exit(EXIT_FAILURE);
     }
     /* Send the string to the server */
     /*	    FILL IN	 */
-
+    int recvSize = recv(sock, rcvBuf, RCVBUFSIZE, 0);
+    if(recvSize==-1){
+        perror("recv() error");
+        exit(1);
+    }
 
     /* Receive and print response from the server */
     /*	    FILL IN	 */
 
+    int recvSize = recv(sock, rcvBuf, RCVBUFSIZE, 0);
+    if(recvSize==-1){
+        perror("recv() error");
+        exit(1);
+    }
+
     printf("%s\n", accountName);
     printf("Balance is: %i\n", balance);
-
+    close(sock);
     return 0;
 }
 

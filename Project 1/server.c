@@ -35,6 +35,8 @@ int main(int argc, char *argv[])
     char nameBuf[BUFSIZE];			/* Buff to store account name from client */
     int  balance;				/* Place to record account balance result */
 
+    char sendBuf[SNDBUFSIZE];
+    char receiveBuf[RCVBUFSIZE];
 
     /* Create new TCP Socket for incoming requests*/
     /*	    FILL IN	*/
@@ -46,12 +48,26 @@ int main(int argc, char *argv[])
 
     /* Construct local address structure*/
     /*	    FILL IN	*/
-    
+    memset(&changeServAddr, 0, sizeof(changeServAddr));
+    changeServAddr.sin_family = AF_INET
+    changeServAddr.sin_port = htons(servPort);
+    changeServAddr.sin_addr.in_addr = hton1(INADDR_ANY);
+
     /* Bind to local address structure */
     /*	    FILL IN	*/
-
+    if (bind(serverSock, (struct sockadd*) &changeServAddr, sizeof(changeServAddr)) < 0) {
+        perror("binding failed exiting");
+        close(serverSock);
+        exit(EXIT_FAILURE);
+    } 
     /* Listen for incoming connections */
     /*	    FILL IN	*/
+
+    if (listen(serverSock, 5) < 0) {
+        perror("listening for outstanding connections");
+        close(serverSock);
+        exit(EXIT_FAILURE);
+    }
 
     /* Loop server forever*/
     while(1)
@@ -59,14 +75,28 @@ int main(int argc, char *argv[])
 
 	/* Accept incoming connection */
 	/*	FILL IN	    */
-
+    unsigned int clientAddLength = sizeof(clntLen)
+    clientSock = accept(serverSock, (struct sockadd*) &changeClntAddr, &clientAddLength )
+    if (clntSock < 0) {
+        perror("Client Socket failed to start, Exiting");
+        close(serverSock);
+        exit(EXIT_FAILURE);
+    }
 	/* Extract the account name from the packet, store in nameBuf */
 	/* Look up account balance, store in balance */
 	/*	FILL IN	    */
+    int received = recv(clientSock, receiveBuf, RCVBUFSIZE, 0);
+    if (clientSock < 0) {
+        perror("Client not open currently");
+        close(serverSock);
+        exit(EXIT_FAILURE);
+    }
 
 	/* Return account balance to client */
 	/*	FILL IN	    */
 
+
+        close(clientSock);
     }
 
 }
