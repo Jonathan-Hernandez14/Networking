@@ -72,10 +72,9 @@ int main(int argc, char *argv[])
     /* Construct the server address structure */
     /*	    FILL IN	 */
 
-    serv_addr.sin_family = AF_INET
+    serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(servPort);
-    serv_addr.sin_addr.in_addr = hton1(INADDR_ANY);
-    serv_addr -> sin_zero[8] =
+    serv_addr.sin_addr.s_addr = hton1(INADDR_ANY);
 
     /* Establish connecction to the server */
     /*	    FILL IN	 */
@@ -88,7 +87,7 @@ int main(int argc, char *argv[])
     }
     /* Send the string to the server */
     /*	    FILL IN	 */
-    int recvSize = recv(sock, rcvBuf, RCVBUFSIZE, 0);
+    int recvSize = recv(clientSock rcvBuf, RCVBUFSIZE, 0);
     if(recvSize==-1){
         perror("recv() error");
         exit(1);
@@ -97,8 +96,8 @@ int main(int argc, char *argv[])
     /* Receive and print response from the server */
     /*	    FILL IN	 */
 
-    int recvSize = recv(sock, rcvBuf, RCVBUFSIZE, 0);
-    if(recvSize==-1){
+    int recSize = recv(sock, rcvBuf, RCVBUFSIZE, 0);
+    if(recSize==-1){
         perror("recv() error");
         exit(1);
     }
