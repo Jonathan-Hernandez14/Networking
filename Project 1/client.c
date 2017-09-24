@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 
     /* Establish connecction to the server */
     /*	    FILL IN	 */
-    connection_stat = connect(clientSock, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+    int connection_stat = connect(clientSock, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
     if (connection_stat < 0) {
     	perror("Connection failed, terrminating process");
     	close(clientSock);
