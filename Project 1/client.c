@@ -87,17 +87,22 @@ int main(int argc, char *argv[])
     }
     /* Send the string to the server */
     /*	    FILL IN	 */
-    int recvSize = recv(clientSock rcvBuf, RCVBUFSIZE, 0);
-    if(recvSize==-1){
-        perror("recv() error");
-        exit(1);
+
+    snprintf(sndBuf, SNDBUFSIZE, "%s %s", balCount, accountName);
+
+    ssize_t numBytes = send(sock, sndBuf, SNDBUFSIZE, 0);
+    if(numBytes < 0){
+        // DieWithSystemMessage("send() failed");
+        perror("send() failed... TRY AGAIN");
+        close(sock);
+        exit(EXIT_FAILURE);
     }
 
     /* Receive and print response from the server */
     /*	    FILL IN	 */
 
-    int recSize = recv(sock, rcvBuf, RCVBUFSIZE, 0);
-    if(recSize==-1){
+    int recvSize = recv(clientSock rcvBuf, RCVBUFSIZE, 0);
+    if(recvSize==-1){
         perror("recv() error");
         exit(1);
     }
@@ -107,4 +112,3 @@ int main(int argc, char *argv[])
     close(sock);
     return 0;
 }
-
