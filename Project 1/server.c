@@ -38,6 +38,11 @@ int main(int argc, char *argv[])
     char sendBuf[SNDBUFSIZE];
     char receiveBuf[RCVBUFSIZE];
 
+    int countSaving = 0;
+    int countChecking = 0;
+    int countRetirement = 0;
+    int countCollege = 0;
+
     /* Create new TCP Socket for incoming requests*/
     /*	    FILL IN	*/
     serverSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -92,12 +97,52 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
+
+           if(strcmp("BAL mySavings", rcvBuf)==0){
+            countSaving++;
+            balance = 1000;
+            snprintf(sndBuf, SNDBUFSIZE, "mySavings BALANCE  %d", balance);
+
+        }
+        else if(strcmp("BAL myChecking", rcvBuf)==0){
+            countChecking++;
+            balance = 2000;
+            snprintf(sndBuf, SNDBUFSIZE, "myChecking BALANCE  %d", balance);
+        }        
+        else if(strcmp("BAL myRetirement", rcvBuf)==0){
+            countRetirement++;
+            balance = 3000;
+            snprintf(sndBuf, SNDBUFSIZE, "myRetirement BALANCE  %d", balance);
+        }        
+        else if(strcmp("BAL myCollege", rcvBuf)==0){
+            countCollege++;
+            balance = 4000;
+            snprintf(sndBuf, SNDBUFSIZE, "myCollege BALANCE  %d", balance);
+        }
+
+
+        else if(strcmp("COUNT mySavings", rcvBuf)==0){
+            snprintf(sndBuf, SNDBUFSIZE, "mySavings COUNT  %d", countSaving);
+        }
+        else if(strcmp("COUNT myChecking", rcvBuf)==0){
+            snprintf(sndBuf, SNDBUFSIZE, "myChecking COUNT  %d", countChecking);
+        }        
+        else if(strcmp("COUNT myRetirement", rcvBuf)==0){
+            snprintf(sndBuf, SNDBUFSIZE, "myRetirement COUNT  %d", countRetirement);
+        }        
+        else if(strcmp("COUNT myCollege", rcvBuf)==0){
+            snprintf(sndBuf, SNDBUFSIZE, "myCollege COUNT  %d", countCollege);
+        }
+        // else is a BAD COMMAND
+        else{
+            // perror() -> posted straight to command prompt; not buffered
+            snprintf(sndBuf, SNDBUFSIZE, "YOU FAILED TO GIVE CORRECT PROMPT. Please try again.");
+        }
 	/* Return account balance to client */
 	/*	FILL IN	    */
 
-
+        int sentSize = send(clntSock, sndBuf, SNDBUFSIZE, 0);
         close(clientSock);
     }
 
 }
-
