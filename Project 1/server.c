@@ -106,24 +106,24 @@ int main(int argc, char *argv[])
 
         if(strcmp("BAL mySavings", rcvBuf)==0){
             countSaving++;
-            balance = 1000;
-            snprintf(sndBuf, SNDBUFSIZE, "mySavings BALANCE  %d", balance);
+            balance = 2000;
+            snprintf(sndBuf, SNDBUFSIZE, "mySavings account BALANCE  %d", balance);
 
         }
         else if(strcmp("BAL myChecking", rcvBuf)==0){
             countChecking++;
             balance = 2000;
-            snprintf(sndBuf, SNDBUFSIZE, "myChecking BALANCE  %d", balance);
+            snprintf(sndBuf, SNDBUFSIZE, "myChecking account BALANCE  %d", balance);
         }        
         else if(strcmp("BAL myRetirement", rcvBuf)==0){
             countRetirement++;
             balance = 3000;
-            snprintf(sndBuf, SNDBUFSIZE, "myRetirement BALANCE  %d", balance);
+            snprintf(sndBuf, SNDBUFSIZE, "myRetirement account BALANCE  %d", balance);
         }        
         else if(strcmp("BAL myCollege", rcvBuf)==0){
             countCollege++;
             balance = 4000;
-            snprintf(sndBuf, SNDBUFSIZE, "myCollege BALANCE  %d", balance);
+            snprintf(sndBuf, SNDBUFSIZE, "myCollege account BALANCE  %d", balance);
         }
 
         else if(strcmp("COUNT mySavings", rcvBuf)==0){

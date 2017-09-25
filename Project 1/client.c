@@ -44,13 +44,15 @@ int main(int argc, char *argv[])
 	exit(1);
     }
     accountName = argv[1];
+
     memset(&sndBuf, 0, SNDBUFSIZE);
     memset(&rcvBuf, 0, RCVBUFSIZE);
 
     /* Get the addditional parameters from the command line */
     /*	    FILL IN	*/
-
-
+    accountName = argv[2];
+    servIP = argv[3];
+    servPort =  atoi(argv[4]);
 
 
     /* Create a new TCP socket*/
