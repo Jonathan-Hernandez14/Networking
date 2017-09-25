@@ -52,7 +52,8 @@ int main(int argc, char *argv[])
     /*	    FILL IN	*/
     accountName = argv[2];
     servIP = argv[3];
-    servPort =  atoi(argv[4]);
+    servPort = atoi(argv[4]);
+    fprint(servPort);
 
 
     /* Create a new TCP socket*/
